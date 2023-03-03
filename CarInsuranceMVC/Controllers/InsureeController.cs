@@ -50,6 +50,7 @@ namespace CarInsuranceMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                insuree.Quote = GetQuote(insuree);
                 db.Insurees.Add(insuree);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -129,9 +130,19 @@ namespace CarInsuranceMVC.Controllers
             var YourAge = DateTime.Now.Year - insuree.DateOfBirth.Year;
             insuree.Quote = 50;
 
-            if (YourAge < 18) insuree.Quote += 50;
-            if (YourAge > 18 && YourAge < 25) insuree.Quote += 25;
-            if (insuree.CarYear < 2000 || insuree.CarYear > 2015) insuree.Quote += 25;
+            if (YourAge <= 18)
+            {
+                insuree.Quote += 100;
+            }
+            else if (YourAge > 18 && YourAge <= 25)
+            {
+                insuree.Quote += 50;
+            }
+            else
+            {
+                insuree.Quote += 25;
+            }
+
             if (insuree.CarMake == "Porsche") insuree.Quote += 25;
             if (insuree.CarModel == "911 Carrera") insuree.Quote += 25;
             if (insuree.SpeedingTickets > 0) insuree.Quote += insuree.SpeedingTickets * 10;
