@@ -142,7 +142,7 @@ namespace CarInsuranceMVC.Controllers
             {
                 insuree.Quote += 25;
             }
-
+            if (insuree.CarYear < 2000 || insuree.CarYear > 2015) insuree.Quote += 25;
             if (insuree.CarMake == "Porsche") insuree.Quote += 25;
             if (insuree.CarModel == "911 Carrera") insuree.Quote += 25;
             if (insuree.SpeedingTickets > 0) insuree.Quote += insuree.SpeedingTickets * 10;
